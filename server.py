@@ -1,23 +1,36 @@
 import socket
 from optparse import OptionParser
 
-def parse_request(data):
-  split_data = data.split(" ")
-  print split_data
+CLASSNAME = 'cs5700fall2014'
 
+def parse_request(data):
+  # need to parse the data
+  # then compute math if necessary
+  # then build a response message
+  split_data = data.split(" ")
+  operator = split_data[3]
+  print split_data
+  print operator
+  number = None
+  if operator == '+':
+    number = int(split_data[2]) + int(split_data[4])
+  elif operator == '-':
+    number = int(split_data[2]) - int(split_data[4])
+  elif operator == '*':
+    number = int(split_data[2]) * int(split_data[4])
+  elif operator == '/':
+    number = int(split_data[2]) / int(split_data[4])
+  return CLASSNAME + ' ' + str(number) + '\n'
+
+#cs5700fall2014 HELLO [your NEU ID]\n
 
 def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  s.bind((hostname, options.port))
-  s.listen(1)
-  conn, addr = s.accept()
-  print 'Connected by', addr
-  while 1:
-    data = conn.recv(256)
-    if data:
-      conn.sendall(data)
-      parse_request(data)
-  conn.close()
+  s.connect((HOST, PORT))
+  s.sendall('cs5700fall2014 HELLO 000507111\n')
+  data = s.recv(256)
+  print 'Received', repr(data)
+  s.close()
 
 parser = OptionParser()
 
