@@ -2,6 +2,7 @@ import socket
 from optparse import OptionParser
 
 CLASSNAME = 'cs5700fall2014'
+HOST = 'cs5700f14.ccs.neu.edu'
 
 def parse_request(data):
   # need to parse the data
@@ -26,7 +27,7 @@ def parse_request(data):
 
 def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  s.connect((HOST, PORT))
+  s.connect((HOST, options.port))
   s.sendall('cs5700fall2014 HELLO 000507111\n')
   data = s.recv(256)
   print 'Received', repr(data)
