@@ -38,6 +38,7 @@ def main(options, hostname, neu_id):
     parsed = parse_request(data)
     if parsed['end']:
       break
+    s.sendall(parsed['message'])
 
   s.close()
 
