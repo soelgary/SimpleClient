@@ -23,7 +23,16 @@ def parse_request(data):
 
 def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  s.connect((HOST, options.port))
+  if options.ssl:
+    print 'Using ssl'
+    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+    context.verify_mode = ssl.CERT_REQUIRED
+    context.check_hostname = True
+    context.load_default_certs()
+    ssl_sock = context.wrap_socket(s, server_hostname=HOST)
+    ssl_sock.connect((HOST, 443))
+  else:
+    s.connect((HOST, options.port))
   s.sendall('cs5700fall2014 HELLO 000507111\n')
   while True:
     data = s.recv(256)
