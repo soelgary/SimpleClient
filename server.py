@@ -11,6 +11,7 @@ def parse_request(data):
   split_data = data.split(" ")
   bye = split_data[2]
   if bye == 'BYE':
+    print 'THIS IS THE END'
     return {"end": True, "message": ""}
   operator = split_data[3]
   print split_data
