@@ -1,5 +1,6 @@
 import socket
 from optparse import OptionParser
+import ssl
 
 CLASSNAME = 'cs5700fall2014'
 HOST = 'cs5700f14.ccs.neu.edu'
