@@ -8,7 +8,7 @@ def parse_request(data):
   split_data = data.split(" ")
   bye = split_data[2]
   if bye == 'BYE\n':
-    return {"end": True, "message": ""}
+    return {"end": True, "message": split_data[1]}
   operator = split_data[3]
   number = None
   if operator == '+':
@@ -29,6 +29,7 @@ def main(options, hostname, neu_id):
     data = s.recv(256)
     parsed = parse_request(data)
     if parsed['end']:
+      print parsed['message']
       break
     s.sendall(parsed['message'])
 
