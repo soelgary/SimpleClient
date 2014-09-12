@@ -26,11 +26,7 @@ def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   if options.ssl:
     print 'Using ssl'
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-    context.verify_mode = ssl.CERT_REQUIRED
-    context.check_hostname = True
-    context.load_default_certs()
-    ssl_sock = context.wrap_socket(s, server_hostname=HOST)
+    ssl_sock = ssl.wrap_socket(s, ca_certs="server.crt", cert_reqs=ssl.CERT_REQUIRED)
     ssl_sock.connect((HOST, 443))
   else:
     s.connect((HOST, options.port))
