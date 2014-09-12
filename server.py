@@ -10,6 +10,7 @@ def parse_request(data):
   # then build a response message
   split_data = data.split(" ")
   bye = split_data[2]
+  print split_data
   if bye == 'BYE':
     print 'THIS IS THE END'
     return {"end": True, "message": ""}
