@@ -27,7 +27,7 @@ def main(options, hostname, neu_id):
   if options.ssl:
     print 'Using ssl'
     ssl_sock = ssl.wrap_socket(s, cert_reqs=ssl.CERT_REQUIRED)
-    ssl_sock.connect(('cs5700f14.ccs.neu.edu', 443))
+    ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
   else:
     s.connect((HOST, options.port))
   s.sendall('cs5700fall2014 HELLO 000507111\n')
