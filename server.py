@@ -7,6 +7,7 @@ HOST = 'cs5700f14.ccs.neu.edu'
 
 def parse_request(data):
   split_data = data.split(" ")
+  print split_data
   bye = split_data[2]
   if bye == 'BYE\n':
     return {"end": True, "message": split_data[1]}
