@@ -30,6 +30,7 @@ def main(options, hostname, neu_id):
     print 'Using ssl'
     ssl_sock = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_TLSv1)
     ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
+    ssl_sock.do_handshake()
     the_socket = ssl_sock
   else:
     s.connect((HOST, options.port))
