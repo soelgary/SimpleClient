@@ -26,7 +26,7 @@ def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   if options.ssl:
     print 'Using ssl'
-    ssl_sock = ssl.wrap_socket(s, cert_reqs=ssl.CERT_REQUIRED)
+    ssl_sock = ssl.wrap_socket(s)
     ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
   else:
     s.connect((HOST, options.port))
