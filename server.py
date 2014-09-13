@@ -25,20 +25,23 @@ def parse_request(data):
 
 def main(options, hostname, neu_id):
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  socket = None
   if options.ssl:
     print 'Using ssl'
     ssl_sock = ssl.wrap_socket(s)
     ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
+    socket = ssl_sock
   else:
     s.connect((HOST, options.port))
+    socket = s
   s.sendall('cs5700fall2014 HELLO 000507111\n')
   while True:
-    data = s.recv(256)
+    data = socket.recv(256)
     parsed = parse_request(data)
     if parsed['end']:
       print parsed['message']
       break
-    s.sendall(parsed['message'])
+    socket.sendall(parsed['message'])
 
   s.close()
 
