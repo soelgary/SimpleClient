@@ -28,14 +28,13 @@ def main(options, hostname, neu_id):
   the_socket = None
   if options.ssl:
     print 'Using ssl'
-    ssl_sock = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_TLSv1)
+    ssl_sock = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_SSLv3, ca_certs='/etc/ssl/certs/ca-certificates.crt')
     ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
-    ssl_sock.do_handshake()
     the_socket = ssl_sock
   else:
     s.connect((HOST, options.port))
     the_socket = s
-  s.sendall('cs5700fall2014 HELLO 000507111\n')
+  the_socket.sendall('cs5700fall2014 HELLO 000507111\n')
   while True:
     data = the_socket.recv(256)
     parsed = parse_request(data)
