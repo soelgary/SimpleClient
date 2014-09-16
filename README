@@ -1,0 +1,7 @@
+The high level approach that I took was to first write a script that can handle all of the arguments in the specification. Before I started hacking away, I wanted to be able to identify what port number to connect to, the host to connect to, the neu id, and whether or not to use ssl.
+
+After I had the ability to gather all of this information I started by just working on the non-ssl part. I was able to get my client connected. I tested this by writing a server of my own since the class server was not yet up. I practiced sending and echoing data that fits the format of the protocol specified. Once the server went up I was able to slightly modify my code to actually do the math and check for the final message.
+
+At this point, the non-ssl part was done. The biggest challenge for me was actually getting the ssl part working. I used openssl to look at the certificates on the server to discover they are self signed which helped me wth my research on how to implement an ssl client. The biggest challenge for me at this part was that I had a bug in my code and didnt understand the error message I was getting. To make a long story short, it was just that I was sending data over the non-ssl socket(which was talking to the server), but the data wasn't being encrypted. After a quick variable change, ssl started working. 
+
+The way I tested my code was by creating a server of my own to talk to the client and also by printing out all of the sent/recieved data for my client and checking that it is correct manually. 

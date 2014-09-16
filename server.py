@@ -4,10 +4,10 @@ import ssl
 
 CLASSNAME = 'cs5700fall2014'
 HOST = 'cs5700f14.ccs.neu.edu'
+DEFAULT_PORT = 27993
 
 def parse_request(data):
   split_data = data.split(" ")
-  print split_data
   bye = split_data[2]
   if bye == 'BYE\n':
     return {"end": True, "message": split_data[1]}
@@ -29,12 +29,12 @@ def main(options, hostname, neu_id):
   if options.ssl:
     print 'Using ssl'
     ssl_sock = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_SSLv3, ca_certs='/etc/ssl/certs/ca-certificates.crt')
-    ssl_sock.connect(('cs5700f14.ccs.neu.edu', 27994))
+    ssl_sock.connect((hostname, 27994))
     the_socket = ssl_sock
   else:
     s.connect((HOST, options.port))
     the_socket = s
-  the_socket.sendall('cs5700fall2014 HELLO 000507111\n')
+  the_socket.sendall('cs5700fall2014 HELLO ' + neu_id + '\n')
   while True:
     data = the_socket.recv(256)
     parsed = parse_request(data)
